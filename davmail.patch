@@ -1,0 +1,21 @@
+diff --git a/src/java/davmail/exchange/ExchangeSession.java b/src/java/davmail/exchange/ExchangeSession.java
+index 99ea770..6a9d92b 100644
+--- a/src/java/davmail/exchange/ExchangeSession.java
++++ b/src/java/davmail/exchange/ExchangeSession.java
+@@ -163,6 +163,16 @@ public abstract class ExchangeSession {
+             DavGatewayHttpClientFacade.createMultiThreadedHttpConnectionManager(httpClient);
+             boolean isBasicAuthentication = isBasicAuthentication(httpClient, url);
+ 
++            //XXX Patched in by davidjb
++            String emailProperty = Settings.getProperty("davmail.allowedUsers");
++            String[] emailsArray = emailProperty.split(",");
++            List<String> emails = Arrays.asList(emailsArray);
++            if (emails.contains(userName) == false) {
++                LOGGER.error("Denied access to user: " + userName);
++                throw new DavMailAuthenticationException("EXCEPTION_AUTHENTICATION_FAILED"); 
++            }
++
++
+             DavGatewayHttpClientFacade.setCredentials(httpClient, userName, password);
+ 
+             // get webmail root url
