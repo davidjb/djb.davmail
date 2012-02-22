@@ -5,7 +5,7 @@ Custom patched DavMail installation instructions
 Build the patched version
 -------------------------
 
-The given patch `davmail.patch`_ adds the ``davmail.allowedUsers`` option to the configuration
+The given patch `davmail.patch <https://github.com/davidjb/davmail/blob/master/davmail.patch>`_ adds the ``davmail.allowedUsers`` option to the configuration
 which accepts a comma-separated list of emails to allow into the server.  This protects 
 (somewhat) from other users who might find your DavMail instance (or are otherwise on
 the same shared Exchange instance [such as MS hosted exchange]).
