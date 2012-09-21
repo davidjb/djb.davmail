@@ -70,7 +70,17 @@ Notes
 -----
 
 * Note that the init.d script doesn't log output from the server (save on IO cycles).
-* The ``.private`` file may contain private information like the ``davmail.allowedUsers``
-  option and email addresses, and also ``davmail.ssl.keyPass`` and
-  ``davmail.ssl.keystorePass`` passwords. This is kept on the server but not checked in
-  (understandably!).
+* The ``.private`` file may contain private information like the
+  ``davmail.allowedUsers`` option and email addresses, and also
+  ``davmail.ssl.keyPass`` and ``davmail.ssl.keystorePass`` passwords. This is
+  kept on the server but not checked in (understandably!). It should look like
+  this::
+
+      davmail.allowedUsers = my.email@example.org,another.user@example.com
+      davmail.ssl.keyPass = password
+      davmail.ssl.keystorePass = password
+
+* Generate a ``davmail.p12`` keyfile using the following::
+
+      keytool -genkey -keyalg rsa -keysize 2048 -storepass password -keystore davmail.p12 -storetype pkcs12 -validity 3650 -dname cn=davmailhostname.company.com,ou=davmail,o=sf,o=net
+
