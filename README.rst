@@ -34,7 +34,7 @@ Installation on server
 After log in::
 
     cd ~
-    git clone git://github.com/davidjb/davmail.git davmail-davidjb
+    git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
     tar xf davmail-linux-x86_64-*-trunk.tgz
     rm davmail-linux-x86_64-*-trunk.tgz
     mv davmail davmail.old
