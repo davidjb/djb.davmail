@@ -37,7 +37,6 @@ After log in::
     git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
     tar xf davmail-linux-x86_64-*-trunk.tgz
     rm davmail-linux-x86_64-*-trunk.tgz
-    mv davmail davmail.old
     mv davmail-linux-x86_64-* davmail
     cd davmail
     cp ../davmail-davidjb/* .
