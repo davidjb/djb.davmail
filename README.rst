@@ -1,4 +1,3 @@
-
 Custom patched DavMail installation instructions
 ================================================
 
@@ -13,8 +12,8 @@ the same shared Exchange instance [such as MS hosted exchange]).
 Do the following on a given Linux machine::
 
     cd /tmp
-    wget http://sourceforge.net/projects/davmail/files/davmail/3.9.8/davmail-src-3.9.8-1921.tgz/download?use_mirror=aarnet -O davmail.tgz
-    git clone git://github.com/davidjb/davmail.git davmail-davidjb
+    wget http://sourceforge.net/projects/davmail/files/davmail/4.3.3/davmail-src-4.3.3-2146.tgz/download?use_mirror=aarnet -O davmail.tgz
+    git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
     tar xf davmail.tgz
     rm davmail.tgz
     cd davmail-src-*
