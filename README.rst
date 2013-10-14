@@ -84,10 +84,21 @@ Notes
       davmail.ssl.keyPass = password
       davmail.ssl.keystorePass = password
 
+* Beware of trailing spaces or other characters at the end of the password
+  lines above.  If you have any whitespace afterwards, you will tear your
+  hair out trying to solve this error:
+
+     Exception creating secured server socket : failed to decrypt safe contents entry: javax.crypto.BadPaddingException: Given final block not properly padded
+
+  Hear-tearing is not fun.
+
 * Convert an official SSL certificate from a CA into P12 format using the
   following::
 
       openssl pkcs12 -export -in example.org.crt -inkey example.org.key -certfile ca_bundle.crt -out davmail.p12
+
+  The ``Export Password`` you specify will be that which you need to use
+  as the ``keyPass`` and ``keystorePass`` options above.
 
 * Generate a self-signed ``davmail.p12`` keyfile using the following::
 
