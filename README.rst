@@ -71,6 +71,9 @@ Update an existing installation on a server::
 Notes
 -----
 
+* Use http://testconnectivity.microsoft.com to locate EwsUrl details for
+  inclusion into this configuration file.
+
 * Note that the init.d script doesn't log output from the server (save on IO
   cycles).
 
@@ -86,7 +89,7 @@ Notes
 
 * Beware of trailing spaces or other characters at the end of the password
   lines above.  If you have any whitespace afterwards, you will tear your
-  hair out trying to solve this error:
+  hair out trying to solve this error::
 
      Exception creating secured server socket : failed to decrypt safe contents entry: javax.crypto.BadPaddingException: Given final block not properly padded
 
