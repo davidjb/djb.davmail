@@ -72,7 +72,11 @@ Notes
 -----
 
 * Use http://testconnectivity.microsoft.com to locate EwsUrl details for
-  inclusion into this configuration file.
+  inclusion into this configuration file. On this page, click ``Outlook
+  Autodiscover`` and follow the steps.  On the successful test results page,
+  keep expanding nested test results (there are lots of them!) until you get
+  to a POST result with a variety of XML details.  There should be a
+  ``<EwsUrl>`` tag included -- use this URL.
 
 * Note that the init.d script doesn't log output from the server (save on IO
   cycles).
