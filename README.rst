@@ -97,7 +97,7 @@ Notes
 
      Exception creating secured server socket : failed to decrypt safe contents entry: javax.crypto.BadPaddingException: Given final block not properly padded
 
-  Hear-tearing is not fun.
+  Hair-tearing is not fun.
 
 * Convert an official SSL certificate from a CA into P12 format using the
   following::
