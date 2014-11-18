@@ -36,6 +36,7 @@ Installation on server
 
 See below for an example of the ``.private`` file.  So, after logging in::
 
+    sudo yum install git java-1.8.0-openjdk
     cd ~
     git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
     tar xf davmail-linux-x86_64-*-trunk.tgz
@@ -114,4 +115,18 @@ Notes
   Note that ``keytool`` sets both the keypass and the storepass to the same
   value once just ``storepass`` has been configured.  Weren't you glad you
   asked?
+
+Todo
+====
+
+* Produce Salt configuration to bootstrap the machine:
+
+  * Install and run yum-cron service on boot
+  * Configure SSH for operation on specific port
+  * Download patched tgz for davmail
+  * Install git, java-1.8.0-openjdk packages
+  * Run above instructions for installation
+  * Install private settings and data (Pillar) into templated settings file
+  * Install init.d script, configure for use
+  * Install and run davmail service on boot
 
