@@ -14,7 +14,7 @@ otherwise on the same shared Exchange instance [such as MS hosted exchange]).
 Do the following on a given Linux machine::
 
     cd /tmp
-    wget http://sourceforge.net/projects/davmail/files/davmail/4.3.3/davmail-src-4.3.3-2146.tgz/download?use_mirror=aarnet -O davmail.tgz
+    wget 'http://downloads.sourceforge.net/project/davmail/davmail/4.5.1/davmail-src-4.5.1-2303.tgz' -O davmail.tgz
     git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
     tar xf davmail.tgz
     rm davmail.tgz
