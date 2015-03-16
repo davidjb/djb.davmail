@@ -5,7 +5,7 @@ The patch
 ---------
 
 The given patch `davmail-userwhitelist.patch
-<https://github.com/davidjb/davmail/blob/master/davmail-userwhitelist.patch>`_ adds the
+<https://github.com/davidjb/djb.davmail/blob/master/davmail-userwhitelist.patch>`_ adds the
 ``davmail.allowedUsers`` option to the configuration which accepts a
 comma-separated list of emails to allow into the server.  This protects
 (somewhat) from other users who might find your DavMail instance (or are
