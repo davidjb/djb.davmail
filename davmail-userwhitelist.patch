@@ -1,10 +1,10 @@
 diff --git a/src/java/davmail/exchange/ExchangeSession.java b/src/java/davmail/exchange/ExchangeSession.java
-index 99ea770..6a9d92b 100644
+index 88f3e3a..e2ad6f2 100644
 --- a/src/java/davmail/exchange/ExchangeSession.java
 +++ b/src/java/davmail/exchange/ExchangeSession.java
-@@ -163,6 +163,16 @@ public abstract class ExchangeSession {
-             DavGatewayHttpClientFacade.createMultiThreadedHttpConnectionManager(httpClient);
-             boolean isBasicAuthentication = isBasicAuthentication(httpClient, url);
+@@ -200,6 +200,16 @@ public abstract class ExchangeSession {
+                 }
+             }
  
 +            //XXX Patched in by davidjb
 +            String emailProperty = Settings.getProperty("davmail.allowedUsers");

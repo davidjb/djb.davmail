@@ -1,73 +1,38 @@
 Custom patched DavMail installation instructions
 ================================================
 
-Build the patched version
--------------------------
+The patch
+---------
 
-The given patch `davmail.patch
-<https://github.com/davidjb/davmail/blob/master/davmail.patch>`_ adds the
+The given patch `davmail-userwhitelist.patch
+<https://github.com/davidjb/davmail/blob/master/davmail-userwhitelist.patch>`_ adds the
 ``davmail.allowedUsers`` option to the configuration which accepts a
 comma-separated list of emails to allow into the server.  This protects
 (somewhat) from other users who might find your DavMail instance (or are
 otherwise on the same shared Exchange instance [such as MS hosted exchange]).
 
-Do the following on a given Linux machine::
+Building the patched version
+----------------------------
 
-    cd /tmp
-    wget 'http://downloads.sourceforge.net/project/davmail/davmail/4.5.1/davmail-src-4.5.1-2303.tgz' -O davmail.tgz
-    git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
-    tar xf davmail.tgz
-    rm davmail.tgz
-    cd davmail-src-*
-    patch -p1 < ../davmail-davidjb/davmail.patch
-    #Modify things if patch didn't work
-    ant
-    ls -lah dist/
+You can either manually patch Davmail's sources using the provided patch, or
+use Vagrant to build a CentOS/RHEL/Amazon Linux compatible RPM like so::
 
-You will now have (assuming all the build process went well) a variety of
-builds within the ``dist/`` directory.  Utilise them accordingly.  In the case
-of running DavMail on a remote server, then SCP the relevant ``x86`` or
-``x86_64`` tgz file across, for example::
+    vagrant up
 
-    scp dist/davmail-linux-x86_64* [server]:~
+This will download a CentOS 6.x image, obtain the SRPM for Davmail, patch
+accordingly (for chkconfig, dependendies, the above user patch) and export the
+RPMs.  These can be then copied to the server of your choice.
 
 Installation on server
 ----------------------
 
-See below for an example of the ``.private`` file.  So, after logging in::
+#. Copy RPM produced above to server
+#. Edit ``/etc/davmail.properties`` to configure your Davmail instance
+#. Control Davmail with::
 
-    sudo yum install git java-1.8.0-openjdk
-    cd ~
-    git clone https://github.com/davidjb/djb.davmail.git davmail-davidjb
-    tar xf davmail-linux-x86_64-*-trunk.tgz
-    rm davmail-linux-x86_64-*-trunk.tgz
-    mv davmail-linux-x86_64-* davmail
-    cd davmail
-    cp ../davmail-davidjb/* .
-    cat davmail.properties.private >> davmail.properties
+   sudo service davmail {start,stop,restart,status}
 
-    sudo ln -s ~/davmail-davidjb/etc/init.d/davmail /etc/init.d/davmail
-    sudo chkconfig --add davmail
-    sudo service davmail {start,stop,restart,status}
-
-Update existing version
------------------------
-
-Update an existing installation on a server::
-
-    cd ~
-    pushd davmail-davidjb
-    git pull
-    #Create davmail.properties.private now and/or p12 keystore
-    popd
-    tar xf davmail-linux-x86_64-*-trunk.tgz
-    rm davmail-linux-x86_64-*-trunk.tgz
-    mv davmail davmail.old
-    mv davmail-linux-x86_64-* davmail
-    cd davmail
-    cp ../davmail-davidjb/* .
-    cat davmail.properties.private >> davmail.properties
-    sudo service davmail restart
+You can reinstall a new RPM straight over the top when required.
 
 Notes
 -----
@@ -84,9 +49,8 @@ Notes
 
 * The ``.private`` file may contain private information like the
   ``davmail.allowedUsers`` option and email addresses, and also
-  ``davmail.ssl.keyPass`` and ``davmail.ssl.keystorePass`` passwords. This is
-  kept on the server but not checked in (understandably!). It should look like
-  this::
+  ``davmail.ssl.keyPass`` and ``davmail.ssl.keystorePass`` passwords. It
+  should look like this::
 
       davmail.allowedUsers = my.email@example.org,another.user@example.com
       davmail.ssl.keyPass = password
@@ -97,8 +61,6 @@ Notes
   hair out trying to solve this error::
 
      Exception creating secured server socket : failed to decrypt safe contents entry: javax.crypto.BadPaddingException: Given final block not properly padded
-
-  Hair-tearing is not fun.
 
 * Convert an official SSL certificate from a CA into P12 format using the
   following::
@@ -123,10 +85,4 @@ Todo
 
   * Install and run yum-cron service on boot
   * Configure SSH for operation on specific port
-  * Download patched tgz for davmail
-  * Install git, java-1.8.0-openjdk packages
-  * Run above instructions for installation
-  * Install private settings and data (Pillar) into templated settings file
-  * Install init.d script, configure for use
-  * Install and run davmail service on boot
-
+  * Patch/install RPMs

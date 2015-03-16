@@ -1,0 +1,48 @@
+diff --git a/davmail.spec b/davmail.spec
+index ec2e8bd..2fcccbb 100644
+--- a/davmail.spec
++++ b/davmail.spec
+@@ -33,6 +33,7 @@ Requires(post): coreutils, filesystem, /sbin/chkconfig
+ Requires(preun): /sbin/service, coreutils, /sbin/chkconfig, /usr/sbin/userdel, /usr/sbin/groupdel
+ Requires(postun): /sbin/service
+ Requires: /etc/init.d, logrotate, jre >= 1.6.0
++Requires: redhat-lsb-core
+ 
+ %define davmaildotproperties davmail.properties
+ 
+@@ -43,6 +44,9 @@ Source3: davmail-init
+ Source4: %{davmaildotproperties}
+ Source5: davmail.desktop
+ Source6: davmail-wrapper
++Source7: davmail-init-root.patch
++
++Patch: davmail-userwhitelist.patch
+ 
+ %description
+ DavMail is a POP/IMAP/SMTP/Caldav/Carddav/LDAP Exchange gateway allowing 
+@@ -54,6 +58,7 @@ window and full calendar support with attendees free/busy display.
+ 
+ %prep
+ %setup -q -n %{name}-src-%{davver}
++%patch -p 1
+ 
+ %build
+ # JAVA_HOME points to the JDK root directory: ${JAVA_HOME}/{bin,lib}
+@@ -81,6 +86,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log
+ install -m 0775 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}/davmail
+ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/davmail
+ install -m 0775 %{SOURCE3} $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/davmail
++patch $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/davmail < %{SOURCE7}
+ install -m 0644 %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}
+ # https://fedoraproject.org/wiki/TomCallaway/DesktopFileVendor
+ desktop-file-install --dir $RPM_BUILD_ROOT/%{_datadir}/applications/ %{SOURCE5} --vendor=""
+@@ -126,6 +132,9 @@ fi
+ #/sbin/chkconfig davmail on
+ }
+ 
++/sbin/chkconfig --add davmail
++/sbin/chkconfig davmail on
++
+ %preun
+ if [ "$1" = "0" ]; then
+     /sbin/service davmail stop > /dev/null 2>&1 || :
