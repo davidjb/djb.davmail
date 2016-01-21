@@ -30,7 +30,7 @@ Installation on server
 #. Edit ``/etc/davmail.properties`` to configure your Davmail instance
 #. Control Davmail with::
 
-   sudo service davmail {start,stop,restart,status}
+       sudo service davmail {start,stop,restart,status}
 
 You can reinstall a new RPM straight over the top when required.
 
