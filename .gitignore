@@ -1,3 +1,4 @@
+build/
 *.private
 *.p12
 davmail.properties

@@ -5,34 +5,47 @@ The patch
 ---------
 
 The given patch `davmail-userwhitelist.patch
-<https://github.com/davidjb/djb.davmail/blob/master/davmail-userwhitelist.patch>`_ adds the
+<https://github.com/davidjb/djb.davmail/blob/master/patches/davmail-userwhitelist.patch>`_ adds the
 ``davmail.allowedUsers`` option to the configuration which accepts a
 comma-separated list of emails to allow into the server.  This protects
 (somewhat) from other users who might find your DavMail instance (or are
 otherwise on the same shared Exchange instance [such as MS hosted exchange]).
 
-Building the patched version
-----------------------------
+Building
+--------
 
 You can either manually patch Davmail's sources using the provided patch, or
-use Vagrant to build a CentOS/RHEL/Amazon Linux compatible RPM like so::
+use Docker to build a .deb for you.  This will always build the latest version
+of Davmail from the Debian repositories (ensuring it is suitably packaged with
+init scripts and the like, unlike the .deb that comes from the developer).
 
-    vagrant up
+#. Ensure `Docker <https://docs.docker.com/>`_ and `Docker Compose
+   <https://docs.docker.com/compose>`_ are installed.
 
-This will download a CentOS 6.x image, obtain the SRPM for Davmail, patch
-accordingly (for chkconfig, dependendies, the above user patch) and export the
-RPMs.  These can be then copied to the server of your choice.
+#. Run the following::
+
+       git clone https://github.com/davidjb/djb.davmail.git
+       cd djb.davmail
+       docker-compose up
+
+#. Enjoy your new package, available in the `build/` directory.
+
+If you're not into Docker, then you can use the ``davmail-build.sh``
+script directly on your own Debian VM.  You'll need to ensure you have
+set up the basic dependencies of building debs first; see the
+``Dockerfile`` file for more information.
 
 Installation on server
 ----------------------
 
-#. Copy RPM produced above to server
+#. Copy package produced above to server
 #. Edit ``/etc/davmail.properties`` to configure your Davmail instance
+#. Add security certificates into the appropriate ``.p12`` keystore
 #. Control Davmail with::
 
-       sudo service davmail {start,stop,restart,status}
+       sudo systemctl {start,stop,restart,status} davmail
 
-You can reinstall a new RPM straight over the top when required.
+You can reinstall a new package straight over the top when required.
 
 Notes
 -----
@@ -77,12 +90,3 @@ Notes
   Note that ``keytool`` sets both the keypass and the storepass to the same
   value once just ``storepass`` has been configured.  Weren't you glad you
   asked?
-
-Todo
-====
-
-* Produce Salt configuration to bootstrap the machine:
-
-  * Install and run yum-cron service on boot
-  * Configure SSH for operation on specific port
-  * Patch/install RPMs
