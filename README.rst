@@ -38,9 +38,28 @@ set up the basic dependencies of building debs first; see the
 Installation on server
 ----------------------
 
-#. Copy package produced above to server
+#. Copy package produced above to server.  Install it with::
+
+      sudo apt-get update && sudo apt-get install -y gdebi0-core -y
+      sudo gdebi ./davmail_*.deb
+
 #. Edit ``/etc/davmail.properties`` to configure your Davmail instance
+
 #. Add security certificates into the appropriate ``.p12`` keystore
+
+#. Configure the OS accordingly to permit Davmail to listen on privileged
+   ports, either:
+
+   #. Run it as root (not recommended), or
+   #. Enable capabilities::
+
+          sudo apt-get install -y libcap2-bin
+          sudo setcap 'cap_net_bind_service=+ep' $(readlink -f $(which java))
+
+#. Unmask the service::
+
+       sudo systemctl unmask davmail
+
 #. Control Davmail with::
 
        sudo systemctl {start,stop,restart,status} davmail
