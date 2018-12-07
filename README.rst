@@ -44,7 +44,7 @@ Installation on server
 
 #. Copy package produced above to server.  Install it with::
 
-      sudo apt-get update && sudo apt-get install -y gdebi0-core -y
+      sudo apt update && sudo apt install -y gdebi0-core
       sudo gdebi ./davmail_*.deb
 
 #. Edit ``/etc/davmail.properties`` to configure your Davmail instance
@@ -57,7 +57,7 @@ Installation on server
    #. Run it as root (not recommended), or
    #. Enable capabilities::
 
-          sudo apt-get install -y libcap2-bin
+          sudo apt install -y libcap2-bin
           sudo setcap 'cap_net_bind_service=+ep' $(readlink -f $(which java))
 
 #. Unmask the service::
