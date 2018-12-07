@@ -1,5 +1,4 @@
 FROM debian:9
-MAINTAINER "David Beitey" <docker.davmail@davidjb.com>
 
 # Add source repositories
 RUN echo """ \n\
