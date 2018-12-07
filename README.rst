@@ -1,6 +1,10 @@
 Custom patched DavMail installation instructions
 ================================================
 
+.. image:: https://travis-ci.org/davidjb/djb.davmail.svg?branch=master
+   :target: https://travis-ci.org/davidjb/djb.davmail
+
+
 The patch
 ---------
 
