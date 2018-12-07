@@ -1,11 +1,9 @@
 #!/bin/sh
-set -e
-
 # Get source package
-sudo apt-get source davmail
+sudo apt source davmail
 
 # Install build dependencies
-sudo apt-get build-dep -y davmail
+sudo apt build-dep -y davmail
 
 # Patch and rebuild
 cd davmail-* || exit
@@ -15,4 +13,4 @@ debuild -us -uc
 
 # Test installation of output package
 sudo dpkg -i ../davmail_*.deb
-sudo apt-get install -f -y
+sudo apt --fix-broken install -y
