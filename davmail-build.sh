@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 # Get source package
 sudo apt source davmail
 
